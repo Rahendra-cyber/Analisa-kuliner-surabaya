@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infografis Data Analytics — Strategi Bisnis Kuliner Surabaya</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #F8FAFC;
+      color: #0F172A;
+    }
+    .chart-container {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 310px;
+      max-height: 400px;
+    }
+    @media (min-width: 768px) {
+      .chart-container {
+        height: 350px;
+      }
+    }
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 10mm;
+      }
+      body {
+        background-color: #FFFFFF !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      nav, .no-print {
+        display: none !important;
+      }
+      section, .rounded-2xl {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .chart-container {
+        height: 260px !important;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-orange-200 selection:text-slate-900">
+
+  <nav class="sticky top-0 z-40 bg-slate-900/95 backdrop-blur-md text-white border-b border-slate-800 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 text-slate-950 font-extrabold flex items-center justify-center text-sm shadow-sm">
+          📊
+        </span>
+        <div>
+          <p class="text-[11px] font-bold uppercase tracking-widest text-amber-400">Market Intelligence</p>
+          <h1 class="text-sm sm:text-base font-extrabold tracking-tight text-white">Ekosistem Kuliner Surabaya</h1>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-6 text-xs font-semibold text-slate-300">
+        <a href="#makroekonomi" class="hover:text-amber-400 transition-colors">1. Daya Beli</a>
+        <a href="#pasar-zonasi" class="hover:text-amber-400 transition-colors">2. Segmen &amp; Zonasi</a>
+        <a href="#konsep-terpilih" class="hover:text-amber-400 transition-colors">3. Konsep F&amp;B</a>
+        <a href="#finansial-bep" class="hover:text-amber-400 transition-colors">4. Finansial &amp; BEP</a>
+        <a href="#operasional-roadmap" class="hover:text-amber-400 transition-colors">5. Tata Kelola</a>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="hidden sm:inline-block px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold">
+          ROI 5,25 Bln
+        </span>
+        <button id="exportPdfBtn" type="button" class="no-print px-3.5 py-2 rounded-xl bg-orange-500 hover:bg-orange-400 active:scale-95 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 shadow-sm transition-all cursor-pointer">
+          <span>📄</span> Simpan PDF
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <header class="bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-b-4 border-orange-500">
+    <div class="max-w-7xl mx-auto space-y-8">
+      <div class="max-w-3xl space-y-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/20 border border-orange-400/40 text-orange-300 text-xs font-bold uppercase tracking-wider">
+          <span>🔥</span> Portofolio Data Analytics &amp; Studi Kelayakan F&amp;B
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+          Perancangan Konsep Bisnis Kuliner Berbasis Data di Kota Surabaya
+        </h2>
+        <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+          Sintesis kuantitatif dari indikator makroekonomi BPS Kota Surabaya, analisis elastisitas harga kompetitor, pemetaan spasial 31 kecamatan, serta pemodelan <em>unit economics</em> untuk mengidentifikasi peluang bisnis dengan probabilitas keberhasilan tertinggi.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/15 shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-sky-300 uppercase tracking-wider">UMK Kota Surabaya</span>
+            <span class="text-lg">💰</span>
+          </div>
+          <p class="text-2xl sm:text-3xl font-extrabold text-white mt-2">Rp5,29 Jt</p>
+          <p class="text-xs text-emerald-300 font-medium mt-1">+116% di atas UMP Jawa Timur</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/15 shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-sky-300 uppercase tracking-wider">PDRB Akomodasi &amp; F&amp;B</span>
+            <span class="text-lg">🍽️</span>
+          </div>
+          <p class="text-2xl sm:text-3xl font-extrabold text-amber-400 mt-2">16,34%</p>
+          <p class="text-xs text-slate-300 font-medium mt-1">Peringkat 3 terbesar struktur kota</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/15 shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-sky-300 uppercase tracking-wider">Titik Impas (BEP)</span>
+            <span class="text-lg">⚖️</span>
+          </div>
+          <p class="text-2xl sm:text-3xl font-extrabold text-white mt-2">49 Trx<span class="text-sm font-normal text-slate-300">/hari</span></p>
+          <p class="text-xs text-emerald-300 font-medium mt-1">Blended AOV Rp32.000 (Margin 58%)</p>
+        </div>
+
+        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-5 border border-white/15 shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-sky-300 uppercase tracking-wider">Laba Bersih Moderat</span>
+            <span class="text-lg">📈</span>
+          </div>
+          <p class="text-2xl sm:text-3xl font-extrabold text-emerald-400 mt-2">Rp25,7 Jt<span class="text-sm font-normal text-slate-300">/bln</span></p>
+          <p class="text-xs text-amber-300 font-medium mt-1">Balik modal 5,25 bulan (CapEx 135 Jt)</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+    <section id="makroekonomi" class="space-y-6">
+      <div class="border-l-4 border-sky-600 pl-4 space-y-2">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-sky-600">Bagian 01 • Exploratory Data Analysis</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Fondasi Daya Beli &amp; Struktur Ekonomi Surabaya</h2>
+        <p class="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed">
+          Sebagai motor utama kawasan metropolitan Gerbangkertosusila dengan pertumbuhan ekonomi mencapai <strong>5,87%</strong> dan konsumsi rumah tangga sebesar <strong>60,24%</strong> dari PDRB, Surabaya memiliki kapasitas belanja makanan siap saji yang jauh melampaui rata-rata regional. Tingginya standar upah pekerja formal serta Indeks Pembangunan Manusia (IPM) sebesar <strong>86,33</strong> membentuk basis konsumen kelas menengah yang menuntut higienitas dan kecepatan layanan.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Perbandingan Standar Upah Minimum (Juta Rp)</h3>
+            <p class="text-xs text-slate-500 mt-1">UMK Surabaya naik 6,59% dan mencapai lebih dari dua kali lipat UMP Jawa Timur.</p>
+          </div>
+          <div class="chart-container">
+            <canvas id="wageChart"></canvas>
+          </div>
+          <p class="text-xs text-slate-600 bg-sky-50 border border-sky-100 rounded-xl p-3 leading-relaxed">
+            <strong>Insight Utama:</strong> Dengan UMK <strong>Rp5.288.796/bulan</strong>, pekerja formal dan mahasiswa perantau di Surabaya memiliki alokasi anggaran harian yang kuat untuk konsumsi makan siang praktis serta minuman dingin.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Struktur PDRB Kota Surabaya vs Rata-Rata Nasional (%)</h3>
+            <p class="text-xs text-slate-500 mt-1">Dominasi sektor Penyediaan Akomodasi &amp; Makan Minum dalam perekonomian kota.</p>
+          </div>
+          <div class="chart-container">
+            <canvas id="pdrbChart"></canvas>
+          </div>
+          <p class="text-xs text-slate-600 bg-orange-50 border border-orange-100 rounded-xl p-3 leading-relaxed">
+            <strong>Insight Utama:</strong> Kontribusi sektor F&amp;B dan akomodasi sebesar <strong>16,34%</strong> (lebih dari 5 kali lipat rata-rata nasional ~3,1%) menegaskan posisi Surabaya sebagai kota jasa dan destinasi kuliner utama Jawa Timur.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pasar-zonasi" class="space-y-6">
+      <div class="border-l-4 border-orange-500 pl-4 space-y-2">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-orange-600">Bagian 02 • Segmentasi Harga &amp; Analisis Spasial</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Celah Pasar (Sweet Spot) &amp; Peta Zonasi 5 Wilayah</h2>
+        <p class="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed">
+          Pemetaan struktur harga kompetitor dan karakteristik demografi di 31 kecamatan menunjukkan bahwa kesuksesan bisnis kuliner di Surabaya sangat bergantung pada ketepatan memadukan rentang harga <em>value-for-money</em> dengan koridor kepadatan trafik yang sesuai.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Peringkat Kesesuaian Lokasi (Zoning Score)</h3>
+            <p class="text-xs text-slate-500 mt-1">Evaluasi potensi volume transaksi, penetrasi delivery, dan demografi di 5 wilayah.</p>
+          </div>
+          <div class="chart-container">
+            <canvas id="zoningChart"></canvas>
+          </div>
+          <p class="text-xs text-slate-600 bg-emerald-50 border border-emerald-100 rounded-xl p-3 leading-relaxed">
+            <strong>Insight Utama:</strong> <strong>Surabaya Timur (Skor 9,2/10)</strong> di koridor MERR, Gubeng, Kertajaya, dan Rungkut unggul berkat konsentrasi kampus besar (UNAIR, ITS, UBAYA, UPN) dan keluarga muda yang sangat aktif bertransaksi via aplikasi pesan-antar.
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Segmentasi Kompetitor &amp; Elastisitas Harga</h3>
+            <p class="text-xs text-slate-500 mt-1">Distribusi kepadatan pemain vs peluang margin kotor di pasar Surabaya.</p>
+          </div>
+
+          <div class="space-y-3 my-auto">
+            <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200">
+              <div class="flex items-center justify-between text-xs font-bold text-rose-900">
+                <span>Tier 1: Di bawah Rp15.000 (Warung / Gerobak)</span>
+                <span class="px-2 py-0.5 rounded-full bg-rose-600 text-white text-[10px]">RED OCEAN</span>
+              </div>
+              <div class="w-full bg-rose-200 h-2.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-rose-600 h-full rounded-full" style="width: 95%;"></div>
+              </div>
+              <p class="text-[11px] text-rose-800 mt-1.5">Sangat padat, perang harga ekstrem, dan margin tipis (&lt;45%) yang rentan fluktuasi harga bahan pokok.</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-500 shadow-sm">
+              <div class="flex items-center justify-between text-xs font-extrabold text-emerald-950">
+                <span>Tier 2: Rp22.000 – Rp35.000 (Fast-Casual Spesialis)</span>
+                <span class="px-2.5 py-0.5 rounded-full bg-emerald-600 text-white text-[10px]">★ GOLDEN SWEET SPOT</span>
+              </div>
+              <div class="w-full bg-emerald-200 h-2.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-emerald-600 h-full rounded-full" style="width: 56%;"></div>
+              </div>
+              <p class="text-[11px] text-emerald-900 mt-1.5">Permintaan harian tinggi dengan margin kotor sehat (65%–68%). Warga mau membayar asalkan porsi <em>marem</em> &amp; bumbu tajam.</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200">
+              <div class="flex items-center justify-between text-xs font-bold text-amber-900">
+                <span>Tier 3: Rp40.000 – Rp75.000 (Cafe &amp; Casual Dining)</span>
+                <span class="px-2 py-0.5 rounded-full bg-amber-500 text-slate-950 text-[10px]">SELEKTIF</span>
+              </div>
+              <div class="w-full bg-amber-200 h-2.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-amber-500 h-full rounded-full" style="width: 38%;"></div>
+              </div>
+              <p class="text-[11px] text-amber-900 mt-1.5">Membutuhkan investasi interior dan biaya sewa ruko besar untuk kenyamanan nongkrong (<em>ambience</em>).</p>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-slate-100 border border-slate-200">
+              <div class="flex items-center justify-between text-xs font-bold text-slate-800">
+                <span>Tier 4: Di atas Rp80.000 (Resto Mal &amp; Surabaya Barat)</span>
+                <span class="px-2 py-0.5 rounded-full bg-slate-600 text-white text-[10px]">NICHE</span>
+              </div>
+              <div class="w-full bg-slate-300 h-2.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-slate-600 h-full rounded-full" style="width: 20%;"></div>
+              </div>
+              <p class="text-[11px] text-slate-600 mt-1.5">Segmen terbatas pada mal besar dan residensial elit dengan kebutuhan CapEx di atas Rp500 juta.</p>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-600 bg-slate-100 rounded-xl p-3 leading-relaxed">
+            <strong>Insight Utama:</strong> Menempatkan produk pada rentang <strong>Rp22.000 – Rp35.000</strong> menghindari perang harga mikro sekaligus menjaga frekuensi pembelian ulang yang tinggi.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="konsep-terpilih" class="space-y-6">
+      <div class="border-l-4 border-emerald-600 pl-4 space-y-2">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-emerald-600">Bagian 03 • Weighted Decision Matrix</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Evaluasi Kandidat &amp; Konsep Bisnis Terpilih</h2>
+        <p class="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed">
+          Untuk menghilangkan bias subjektif, empat kandidat model bisnis dievaluasi menggunakan enam parameter pembobotan: Volume Permintaan (25%), Ketahanan Margin (20%), Kecepatan Operasional (15%), Resiliensi Delivery (15%), Efisiensi Modal (15%), dan Potensi Repeat Order (10%).
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Profil Kinerja 6 Parameter Kandidat Konsep</h3>
+            <p class="text-xs text-slate-500 mt-1">Perbandingan skor skala 1–10 antara konsep terpilih dengan kandidat alternatif.</p>
+          </div>
+          <div class="chart-container">
+            <canvas id="conceptRadarChart"></canvas>
+          </div>
+          <p class="text-xs text-slate-600 bg-emerald-50 border border-emerald-100 rounded-xl p-3 leading-relaxed">
+            <strong>Insight Utama:</strong> <strong>Elevated Sego Sambel &amp; Spice Bowl</strong> meraih skor tertimbang tertinggi (<strong>9,03 / 10</strong>), mengungguli Modern Kopitiam (7,89), Cloud Kitchen Dessert (7,84), dan Healthy Meal Prep (7,77).
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-br from-slate-900 to-sky-950 text-white rounded-2xl shadow-lg p-6 flex flex-col justify-between space-y-5">
+          <div class="space-y-2">
+            <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 text-xs font-bold">
+              ★ Pemenang Matriks Keputusan (Skor 9,03)
+            </span>
+            <h3 class="text-xl sm:text-2xl font-extrabold leading-snug">
+              Elevated Sego Sambel &amp; Spice Bowl + Cold Beverage Bar
+            </h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              Menggabungkan kekuatan kuliner lokal paling dicari di Surabaya (nasi hangat lauk rempah pekat &amp; sambal segar) dengan standar dapur modern berkecepatan tinggi.
+            </p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="bg-white/10 rounded-xl p-3.5 border border-white/10">
+              <p class="text-xs font-bold text-amber-400">🍛 Spesialisasi 4–5 Protein Inti (Prep &lt;4 Menit)</p>
+              <p class="text-xs text-slate-200 mt-1">Cumi Hitam Pedas, Paru Goreng Rempah, Ayam Bumbu Lengkuas/Hitam, dan Telur Krispi Sambal Korek dengan limbah bahan baku (<em>food waste</em>) di bawah 2%.</p>
+            </div>
+
+            <div class="bg-white/10 rounded-xl p-3.5 border border-white/10">
+              <p class="text-xs font-bold text-sky-300">🧊 Cross-Selling Minuman Dingin Margin Tinggi</p>
+              <p class="text-xs text-slate-200 mt-1">Memanfaatkan suhu kota 31°C–35°C melalui Es Teh Tarik Rempah, Es Jeruk Kunci Madu, dan Kopi Susu Roasted (termasuk kemasan botol 1 Liter untuk kantor/keluarga).</p>
+            </div>
+
+            <div class="bg-white/10 rounded-xl p-3.5 border border-white/10">
+              <p class="text-xs font-bold text-emerald-300">🔥 Kalibrasi Budaya Lokal &ldquo;Marem &amp; Medhok&rdquo;</p>
+              <p class="text-xs text-slate-200 mt-1">Standar gramasi nasi 200gr + potongan protein utuh tanpa tepung tebal, dilengkapi 3 pilihan sambal khas Jawa Timur.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="finansial-bep" class="space-y-6">
+      <div class="border-l-4 border-sky-600 pl-4 space-y-2">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-sky-600">Bagian 04 • Pemodelan Finansial &amp; Unit Economics</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Struktur Biaya, Titik Impas (BEP) &amp; Sensitivitas Skenario</h2>
+        <p class="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed">
+          Simulasi finansial disusun untuk skala gerai ruko kecil atau <em>modern booth</em> strategis di Surabaya Timur dengan belanja modal awal (<strong>CapEx</strong>) sebesar <strong>Rp135.000.000</strong> (termasuk sewa tempat tahun pertama Rp60 juta) dan biaya operasional tetap (<strong>Fixed OpEx</strong>) sebesar <strong>Rp27.200.000/bulan</strong>.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Komposisi Unit Economics per Transaksi (AOV Rp32.000)</h3>
+            <p class="text-xs text-slate-500 mt-1">Asumsi harga makanan Rp26.000 + attachment rate minuman 65% (Rp12.000).</p>
+          </div>
+          <div class="chart-container">
+            <canvas id="unitEconChart"></canvas>
+          </div>
+          <p class="text-xs text-slate-600 bg-sky-50 border border-sky-100 rounded-xl p-3 leading-relaxed">
+            <strong>Insight Utama:</strong> Setiap transaksi menghasilkan <strong>Margin Kontribusi Rp18.560 (58,0%)</strong> setelah dikurangi HPP bahan baku &amp; kemasan 32% (Rp10.240) serta beban komisi rata-rata aplikasi online 10% (Rp3.200).
+          </p>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Analisis Titik Impas (Break-Even Point) Bulanan</h3>
+            <p class="text-xs text-slate-500 mt-1">Perbandingan kurva Pendapatan Kotor vs Total Biaya berdasarkan volume harian.</p>
+          </div>
+          <div class="chart-container">
+            <canvas id="bepLineChart"></canvas>
+          </div>
+          <p class="text-xs text-slate-600 bg-amber-50 border border-amber-100 rounded-xl p-3 leading-relaxed">
+            <strong>Insight Utama:</strong> Titik impas tercapai pada <strong>1.466 transaksi/bulan atau 49 transaksi/hari</strong> (omzet Rp46,91 juta/bulan). Transaksi ke-50 dan seterusnya langsung menyumbang laba bersih operasional.
+          </p>
+        </div>
+
+        <div class="md:col-span-2 bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 space-y-5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 class="text-lg font-bold text-slate-900">Proyeksi Laba Rugi &amp; Pengembalian Modal (3 Skenario Bulanan)</h3>
+              <p class="text-xs text-slate-500 mt-0.5">Perbandingan kinerja finansial pada volume Pesimis (60 trx/hari), Moderat (95 trx/hari), dan Optimis (140 trx/hari).</p>
+            </div>
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-bold shrink-0">
+              Target Base: 95 Trx/Hari
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 items-center">
+            <div class="lg:col-span-3">
+              <div class="chart-container">
+                <canvas id="scenarioBarChart"></canvas>
+              </div>
+            </div>
+
+            <div class="lg:col-span-2 space-y-3">
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold text-slate-700">Skenario Pesimis (60 trx/hari)</span>
+                  <span class="text-xs font-bold text-slate-600">Payback: 21,7 Bln</span>
+                </div>
+                <p class="text-sm font-extrabold text-slate-900 mt-1">Omzet Rp57,60 Jt • EBITDA Rp6,21 Jt</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">Net Profit Margin 10,78% (Arus kas tetap positif di atas BEP).</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-500">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-extrabold text-emerald-900">Skenario Moderat / Base (95 trx/hari)</span>
+                  <span class="px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[10px] font-bold">Payback: 5,25 Bln</span>
+                </div>
+                <p class="text-sm font-extrabold text-emerald-950 mt-1">Omzet Rp91,20 Jt • EBITDA Rp25,70 Jt</p>
+                <p class="text-[11px] text-emerald-800 mt-0.5">Net Profit Margin 28,18% dengan pengembalian modal di bawah 6 bulan.</p>
+              </div>
+
+              <div class="p-4 rounded-xl bg-orange-50 border border-orange-200">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold text-orange-900">Skenario Optimis (140 trx/hari)</span>
+                  <span class="text-xs font-bold text-orange-700">Payback: 2,66 Bln</span>
+                </div>
+                <p class="text-sm font-extrabold text-orange-950 mt-1">Omzet Rp134,40 Jt • EBITDA Rp50,75 Jt</p>
+                <p class="text-[11px] text-orange-800 mt-0.5">Net Profit Margin 37,76% (Kapasitas optimal jam makan siang &amp; malam).</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="operasional-roadmap" class="space-y-6">
+      <div class="border-l-4 border-orange-500 pl-4 space-y-2">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-orange-600">Bagian 05 • Tata Kelola Data POS &amp; Eksekusi</span>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Menu Engineering &amp; Peta Jalan Validasi 90 Hari</h2>
+        <p class="text-sm sm:text-base text-slate-600 max-w-4xl leading-relaxed">
+          Keberlanjutan profitabilitas dijaga melalui audit data penjualan POS setiap akhir bulan menggunakan matriks <strong>Kasavana &amp; Smith</strong>, disertai tahapan validasi pasar terukur selama 90 hari pertama sebelum ekspansi penuh.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Matriks Klasifikasi Menu (Kasavana &amp; Smith)</h3>
+            <p class="text-xs text-slate-500 mt-1">Pemetaan otomatis item berdasarkan Popularitas (70% threshold) vs Margin Kontribusi.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-extrabold text-emerald-800">★ STAR</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-600 text-white">Pertahankan</span>
+              </div>
+              <p class="text-[11px] font-semibold text-emerald-900">Popularitas Tinggi + Margin Tinggi</p>
+              <p class="text-xs text-slate-600">Cumi Hitam Pedas &amp; Es Teh Tarik Rempah. Jaga konsistensi resep dan jadikan banner utama.</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-extrabold text-amber-800">⚡ PLOWHORSE</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500 text-slate-950">Bundling</span>
+              </div>
+              <p class="text-[11px] font-semibold text-amber-900">Popularitas Tinggi + Margin Rendah</p>
+              <p class="text-xs text-slate-600">Nasi Ayam Bumbu Lengkuas. Wajib di-bundling dengan minuman dingin untuk mendongkrak margin.</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-sky-50 border border-sky-200 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-extrabold text-sky-800">🧩 PUZZLE</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-sky-600 text-white">Promosikan</span>
+              </div>
+              <p class="text-[11px] font-semibold text-sky-900">Popularitas Rendah + Margin Tinggi</p>
+              <p class="text-xs text-slate-600">Minuman Botol 1 Liter &amp; Paru Rempah. Tingkatkan visibilitas foto dan penawaran paket kantor.</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-100 border border-slate-200 space-y-1.5">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-extrabold text-slate-700">🗑️ DOG</span>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-600 text-white">Eliminasi</span>
+              </div>
+              <p class="text-[11px] font-semibold text-slate-800">Popularitas Rendah + Margin Rendah</p>
+              <p class="text-xs text-slate-600">Item lambat laku dihapus dari sistem POS tiap bulan agar limbah bahan baku tetap di bawah 2%.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-2xl shadow-md border border-slate-200/80 p-6 flex flex-col justify-between space-y-4">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Alur Eksekusi &amp; Validasi Pasar (90-Day Roadmap)</h3>
+            <p class="text-xs text-slate-500 mt-1">Tahapan mitigasi risiko sebelum komitmen ekspansi skala penuh.</p>
+          </div>
+
+          <div class="space-y-3">
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+              <span class="px-2.5 py-1 rounded-lg bg-slate-900 text-white text-xs font-extrabold shrink-0">Hari 1–30</span>
+              <div>
+                <h4 class="text-xs font-bold text-slate-900">R&amp;D &amp; Blind Test Warga Lokal</h4>
+                <p class="text-xs text-slate-600 mt-0.5">Kalibrasi gramasi bumbu rempah dan level pedas sambal kepada 30 responden asli Surabaya (mahasiswa &amp; pekerja kantor).</p>
+              </div>
+            </div>
+
+            <div class="text-center text-slate-400 text-xs font-bold">⬇️</div>
+
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-orange-50 border border-orange-200">
+              <span class="px-2.5 py-1 rounded-lg bg-orange-500 text-white text-xs font-extrabold shrink-0">Hari 31–60</span>
+              <div>
+                <h4 class="text-xs font-bold text-orange-950">MVP Soft Launch (Uji Kecepatan Dapur)</h4>
+                <p class="text-xs text-orange-900 mt-0.5">Validasi alur saji &lt;4 menit, rating aplikasi online (&ge;4,7/5,0), dan <em>beverage attachment rate</em> (&ge;65%) di Surabaya Timur.</p>
+              </div>
+            </div>
+
+            <div class="text-center text-slate-400 text-xs font-bold">⬇️</div>
+
+            <div class="flex items-start gap-3 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200">
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-600 text-white text-xs font-extrabold shrink-0">Hari 61–90</span>
+              <div>
+                <h4 class="text-xs font-bold text-emerald-950">Optimasi Menu &amp; Ekspansi B2B Katering</h4>
+                <p class="text-xs text-emerald-900 mt-0.5">Evaluasi kuadran POS bulan pertama, peluncuran paket <em>bundling</em> makan siang karyawan, dan pre-order katering kantor.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-100 flex flex-wrap gap-2 text-[11px] font-semibold text-slate-600">
+            <span class="px-2.5 py-1 rounded-md bg-slate-100">🎯 Target Repeat Order: &ge;35%</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100">⏱️ Prep Time: &le;4 Menit</span>
+            <span class="px-2.5 py-1 rounded-md bg-slate-100">📉 Food Cost Variance: &le;1,5%</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-slate-900 text-slate-400 py-8 px-4 sm:px-6 lg:px-8 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <p class="font-semibold text-slate-300">Portofolio Data Analytics — Ekosistem Industri F&amp;B Kota Surabaya</p>
+      <p>Sumber Data: BPS Kota Surabaya, SK Gubernur Jatim, &amp; Pemodelan Unit Economics</p>
+    </div>
+  </footer>
+
+  <!-- Toast instruksi penyimpanan PDF (pengganti alert) -->
+  <div id="pdfToast" class="no-print hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50 bg-slate-900 text-white text-xs font-semibold px-4 py-3 rounded-2xl shadow-xl border border-slate-700 max-w-xs sm:max-w-md text-center">
+    Pilih tujuan <strong>"Simpan sebagai PDF" / "Save as PDF"</strong> dan aktifkan opsi <strong>Grafik Latar Belakang</strong> pada jendela cetak.
+  </div>
+
+  <script>
+    (function setupPdfExport() {
+      const exportBtn = document.getElementById('exportPdfBtn');
+      const pdfToast = document.getElementById('pdfToast');
+      if (!exportBtn) return;
+
+      exportBtn.addEventListener('click', function () {
+        if (pdfToast) {
+          pdfToast.classList.remove('hidden');
+          setTimeout(function () {
+            pdfToast.classList.add('hidden');
+          }, 5000);
+        }
+        setTimeout(function () {
+          window.print();
+        }, 300);
+      });
+    })();
+  </script>
+
+  <script>
+    function wrapLabel(label, maxChars) {
+      const limit = maxChars || 16;
+      if (typeof label !== 'string' || label.length <= limit) {
+        return label;
+      }
+      const words = label.split(' ');
+      const lines = [];
+      let currentLine = '';
+
+      for (let i = 0; i < words.length; i++) {
+        const word = words[i];
+        if ((currentLine + (currentLine ? ' ' : '') + word).length <= limit) {
+          currentLine += (currentLine ? ' ' : '') + word;
+        } else {
+          if (currentLine) {
+            lines.push(currentLine);
+          }
+          currentLine = word;
+        }
+      }
+      if (currentLine) {
+        lines.push(currentLine);
+      }
+      return lines;
+    }
+
+    const commonTooltipConfig = {
+      callbacks: {
+        title: function(tooltipItems) {
+          const item = tooltipItems[0];
+          const label = item.chart.data.labels[item.dataIndex];
+          if (Array.isArray(label)) {
+            return label.join(' ');
+          } else {
+            return label;
+          }
+        }
+      }
+    };
+
+    const wageLabels = [
+      wrapLabel('UMK Kota Surabaya Terbaru'),
+      wrapLabel('UMK Kota Surabaya Sebelumnya'),
+      wrapLabel('UMP Provinsi Jawa Timur')
+    ];
+
+    new Chart(document.getElementById('wageChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: wageLabels,
+        datasets: [{
+          label: 'Upah Minimum (Juta Rp)',
+          data: [5.29, 4.96, 2.45],
+          backgroundColor: ['#F97316', '#0284C7', '#94A3B8'],
+          borderRadius: 8,
+          barPercentage: 0.55
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: commonTooltipConfig
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 6,
+            grid: { color: '#E2E8F0' },
+            ticks: {
+              callback: function(value) { return 'Rp ' + value + ' Jt'; },
+              font: { size: 11 }
+            }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { font: { size: 11, weight: '600' } }
+          }
+        }
+      }
+    });
+
+    const pdrbLabels = [
+      wrapLabel('Perdagangan Besar & Eceran'),
+      wrapLabel('Industri Pengolahan'),
+      wrapLabel('Penyediaan Akomodasi & Makan Minum'),
+      wrapLabel('Konstruksi & Jasa Lainnya')
+    ];
+
+    new Chart(document.getElementById('pdrbChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: pdrbLabels,
+        datasets: [
+          {
+            label: 'Kota Surabaya (%)',
+            data: [27.75, 19.07, 16.34, 36.84],
+            backgroundColor: '#0284C7',
+            borderRadius: 6
+          },
+          {
+            label: 'Rata-Rata Nasional F&B (%)',
+            data: [13.10, 18.70, 3.10, 65.10],
+            backgroundColor: '#CBD5E1',
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: commonTooltipConfig
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: { color: '#E2E8F0' },
+            ticks: {
+              callback: function(value) { return value + '%'; },
+              font: { size: 11 }
+            }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { font: { size: 10 } }
+          }
+        }
+      }
+    });
+
+    const zoningLabels = [
+      wrapLabel('Surabaya Timur (MERR, Gubeng, Rungkut)'),
+      wrapLabel('Surabaya Selatan (A. Yani, Ketintang)'),
+      wrapLabel('Surabaya Pusat (Tunjungan, Darmo)'),
+      wrapLabel('Surabaya Barat (HR Muhammad, Citraland)'),
+      wrapLabel('Surabaya Utara (Perak, Kapasan)')
+    ];
+
+    new Chart(document.getElementById('zoningChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: zoningLabels,
+        datasets: [{
+          label: 'Skor Kesesuaian Konsep (Maks 10)',
+          data: [9.2, 8.7, 8.4, 7.6, 7.1],
+          backgroundColor: ['#10B981', '#0284C7', '#0EA5E9', '#F59E0B', '#94A3B8'],
+          borderRadius: 8,
+          barPercentage: 0.65
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: commonTooltipConfig
+        },
+        scales: {
+          x: {
+            beginAtZero: true,
+            max: 10,
+            grid: { color: '#E2E8F0' },
+            ticks: { font: { size: 11 } }
+          },
+          y: {
+            grid: { display: false },
+            ticks: { font: { size: 11, weight: '600' } }
+          }
+        }
+      }
+    });
+
+    const radarLabels = [
+      wrapLabel('Volume Permintaan Pasar'),
+      wrapLabel('Ketahanan Margin Kotor'),
+      wrapLabel('Kecepatan Operasional'),
+      wrapLabel('Resiliensi Delivery'),
+      wrapLabel('Efisiensi Modal Awal'),
+      wrapLabel('Potensi Repeat Order')
+    ];
+
+    new Chart(document.getElementById('conceptRadarChart').getContext('2d'), {
+      type: 'radar',
+      data: {
+        labels: radarLabels,
+        datasets: [
+          {
+            label: 'Elevated Sego Sambel (9,03)',
+            data: [9.5, 8.5, 9.2, 9.0, 8.5, 9.4],
+            backgroundColor: 'rgba(16, 185, 129, 0.22)',
+            borderColor: '#10B981',
+            pointBackgroundColor: '#10B981',
+            borderWidth: 2.5
+          },
+          {
+            label: 'Modern Kopitiam & Mie (7,89)',
+            data: [8.5, 8.8, 7.5, 7.0, 6.5, 8.6],
+            backgroundColor: 'rgba(2, 132, 199, 0.14)',
+            borderColor: '#0284C7',
+            pointBackgroundColor: '#0284C7',
+            borderWidth: 1.8
+          },
+          {
+            label: 'Cloud Kitchen Dessert (7,84)',
+            data: [6.5, 8.2, 8.0, 8.5, 9.2, 6.8],
+            backgroundColor: 'rgba(249, 115, 22, 0.12)',
+            borderColor: '#F97316',
+            pointBackgroundColor: '#F97316',
+            borderWidth: 1.8
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: commonTooltipConfig
+        },
+        scales: {
+          r: {
+            min: 4,
+            max: 10,
+            ticks: { stepSize: 2, font: { size: 9 }, backdropColor: 'transparent' },
+            pointLabels: { font: { size: 10, weight: '600' }, color: '#334155' },
+            grid: { color: '#E2E8F0' }
+          }
+        }
+      }
+    });
+
+    const unitEconLabels = [
+      wrapLabel('Margin Kontribusi Bersih (Rp18.560)'),
+      wrapLabel('HPP Bahan Baku & Kemasan (Rp10.240)'),
+      wrapLabel('Komisi Rata-Rata Aplikasi (Rp3.200)')
+    ];
+
+    new Chart(document.getElementById('unitEconChart').getContext('2d'), {
+      type: 'doughnut',
+      data: {
+        labels: unitEconLabels,
+        datasets: [{
+          data: [58, 32, 10],
+          backgroundColor: ['#10B981', '#0284C7', '#F97316'],
+          borderWidth: 2,
+          borderColor: '#FFFFFF'
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '62%',
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: commonTooltipConfig
+        }
+      }
+    });
+
+    const dailyTrxPoints = [0, 25, 49, 60, 95, 120, 140];
+    const monthlyRevenueCurve = dailyTrxPoints.map(function(trx) {
+      return Number(((trx * 30 * 32000) / 1000000).toFixed(2));
+    });
+    const monthlyTotalCostCurve = dailyTrxPoints.map(function(trx) {
+      const fixedCost = 27.2;
+      const varCost = (trx * 30 * 13440) / 1000000;
+      return Number((fixedCost + varCost).toFixed(2));
+    });
+
+    new Chart(document.getElementById('bepLineChart').getContext('2d'), {
+      type: 'line',
+      data: {
+        labels: dailyTrxPoints.map(function(d) { return d + ' Trx/Hari'; }),
+        datasets: [
+          {
+            label: 'Pendapatan Kotor (Juta Rp)',
+            data: monthlyRevenueCurve,
+            borderColor: '#10B981',
+            backgroundColor: 'rgba(16, 185, 129, 0.12)',
+            fill: true,
+            tension: 0.25,
+            borderWidth: 2.5,
+            pointRadius: 4
+          },
+          {
+            label: 'Total Biaya Tetap + Variabel (Juta Rp)',
+            data: monthlyTotalCostCurve,
+            borderColor: '#F97316',
+            backgroundColor: 'transparent',
+            borderDash: [5, 4],
+            tension: 0.25,
+            borderWidth: 2.5,
+            pointRadius: 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: commonTooltipConfig
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            grid: { color: '#E2E8F0' },
+            ticks: {
+              callback: function(val) { return 'Rp ' + val + ' Jt'; },
+              font: { size: 10 }
+            }
+          },
+          x: {
+            grid: { display: false },
+            ticks: { font: { size: 10, weight: '600' } }
+          }
+        }
+      }
+    });
+
+    const scenarioLabels = [
+      wrapLabel('Skenario Pesimis (60 Trx/Hari)'),
+      wrapLabel('Skenario Moderat Base (95 Trx/Hari)'),
+      wrapLabel('Skenario Optimis (140 Trx/Hari)')
+    ];
+
+    new Chart(document.getElementById('scenarioBarChart').getContext('2d'), {
+      type: 'bar',
+      data: {
+        labels: scenarioLabels,
+        datasets: [
+          {
+            label: 'Biaya Variabel 42% (Juta Rp)',
+            data: [24.19, 38.30, 56.45],
+            backgroundColor: '#94A3B8',
+            borderRadius: 4
+          },
+          {
+            label: 'Biaya Tetap OpEx (Juta Rp)',
+            data: [27.20, 27.20, 27.20],
+            backgroundColor: '#0284C7',
+            borderRadius: 4
+          },
+          {
+            label: 'Laba Bersih EBITDA (Juta Rp)',
+            data: [6.21, 25.70, 50.75],
+            backgroundColor: '#10B981',
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 11 } } },
+          tooltip: commonTooltipConfig
+        },
+        scales: {
+          x: {
+            stacked: true,
+            grid: { display: false },
+            ticks: { font: { size: 11, weight: '600' } }
+          },
+          y: {
+            stacked: true,
+            beginAtZero: true,
+            grid: { color: '#E2E8F0' },
+            ticks: {
+              callback: function(val) { return 'Rp ' + val + ' Jt'; },
+              font: { size: 11 }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
